@@ -16,14 +16,16 @@ namespace Kanaban501app
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            
             GoalsDataBase db = new GoalsDataBase();
             Controller c = new Controller(db);
             Form1 f = new Form1(db);
             f.UpdateControllersData = c.InputHandler;
             c.UpdateTheView = f.HandelUpdateFromController;
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            
             Application.Run(f);
         }
     }

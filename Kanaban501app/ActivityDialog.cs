@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace Kanaban501app
 {
-    public delegate void ActivityModification(object sender, Status originalStatus, Status newStatus);
+    //public delegate void ActivityModification(object sender, Status originalStatus, Status newStatus);
 
     public partial class ActivityDialog : Form
     {
-        private Activity activity;
+        public Activity activity;
+
+        public InputUpdateFromView OnSave;
 
         public ActivityDialog(Activity a)
         {
@@ -24,22 +26,12 @@ namespace Kanaban501app
             ResourcesTextBox.Text = a.Resources;
             StatusComboBox.SelectedIndex = (int)a.Status;
             dateTimePicker1.Value = a.CompleteBy;
+            PriorityComboBox.SelectedIndex = a.Priority[0] - 65;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            activity.Name = ActivityNameTextBox.Text;
-            activity.Resources = ResourcesTextBox.Text;
-            if (activity.Status != (Status)StatusComboBox.SelectedIndex)
-            {
-                StatusChanged?.Invoke(activity, activity.Status, (Status)StatusComboBox.SelectedIndex);
-                activity.Status = (Status)StatusComboBox.SelectedIndex;
-            }
-            //activity.Status = (Status)StatusComboBox.SelectedIndex;
-            activity.CompleteBy = dateTimePicker1.Value;
-            this.Close();
+            OnSave("ActivityDialogSaving", this);
         }
-
-        public event ActivityModification StatusChanged;
     }
 }

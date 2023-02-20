@@ -38,6 +38,8 @@
             this.StatusComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.PriorityComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // ActivityNameTextBox
@@ -129,11 +131,34 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Satus";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(285, 69);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Priority";
+            // 
+            // PriorityComboBox
+            // 
+            this.PriorityComboBox.FormattingEnabled = true;
+            this.PriorityComboBox.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C"});
+            this.PriorityComboBox.Location = new System.Drawing.Point(285, 86);
+            this.PriorityComboBox.Name = "PriorityComboBox";
+            this.PriorityComboBox.Size = new System.Drawing.Size(89, 21);
+            this.PriorityComboBox.TabIndex = 11;
+            // 
             // ActivityDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(386, 191);
+            this.Controls.Add(this.PriorityComboBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.StatusComboBox);
@@ -152,16 +177,17 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox ActivityNameTextBox;
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button LowerLeftCancelButton;
-        private System.Windows.Forms.TextBox ResourcesTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ComboBox StatusComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox ActivityNameTextBox;
+        public System.Windows.Forms.TextBox ResourcesTextBox;
+        public System.Windows.Forms.DateTimePicker dateTimePicker1;
+        public System.Windows.Forms.ComboBox StatusComboBox;
+        private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.ComboBox PriorityComboBox;
     }
 }

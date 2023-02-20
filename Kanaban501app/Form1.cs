@@ -30,10 +30,11 @@ namespace Kanaban501app
             ToDoListView.SelectedIndexChanged += AnySelectionChanged;
             WorkingOnListView.SelectedIndexChanged += AnySelectionChanged;
             DoneListView.SelectedIndexChanged += AnySelectionChanged;
-            LoadASave();
-            this.FormClosed += Save;
+            db.LoadASave();
+            this.FormClosed += db.Save;
             EditButton.Enabled = false;
             DeleteButton.Enabled = false;
+            UpdateListViews();
         }
 
         public void HandelUpdateFromController(string action)
@@ -69,6 +70,7 @@ namespace Kanaban501app
 
         public void UpdateListViews()
         {
+            db.Sort();
             ToDoListView.Items.Clear();
             foreach (Activity a in db.ToDoArray)
             {
@@ -112,7 +114,7 @@ namespace Kanaban501app
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            UpdateControllersData("EditButtonClicked", sender);
+            UpdateControllersData("EditButton_Clicked", sender);
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -120,9 +122,9 @@ namespace Kanaban501app
             UpdateControllersData("DeleteButton_Click", this);
         }
 
-        private void MoveItemFromList(object sender, Status orig, Status nSts)
-        {
-            UpdateControllersData("UpdateListViews", sender);
-        }        
+        //private void MoveItemFromList(object sender, Status orig, Status nSts)
+        //{
+        //    UpdateControllersData("UpdateListViews", sender);
+        //}        
     }
 }

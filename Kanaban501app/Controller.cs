@@ -29,7 +29,7 @@ namespace Kanaban501app
                 case "NewButton_Click":
                     if (db.ToDoArray.Count < 15)
                     {
-                        Activity act = new Activity("New Activity", Status.Todo, "", DateTime.Now);
+                        Activity act = new Activity("New Activity", Status.Todo, "", DateTime.Now, "A");
                         db.ToDoArray.Add(act);
                         CreateDialogFromActivity(act);
                     }
@@ -77,13 +77,31 @@ namespace Kanaban501app
                         UpdateTheView("delOn");
                     }
                     break;
-                case "MoveItemFromList":
-                    if (sender is Activity a)
+                //case "MoveItemFromList":
+                //    if (sender is Activity a)
+                //    {
+                        
+                //    }
+                //    UpdateTheView("norm");
+                //    break;
+                case "ActivityDialogSaving":
+                    if (sender is ActivityDialog ad)
                     {
-                        db.AllActivitesLists[(int)orig].Remove(a);
-                        db.AllActivitesLists[(int)nSts].Add(a);
+                        ad.activity.Name = ad.ActivityNameTextBox.Text;
+                        ad.activity.Resources = ad.ResourcesTextBox.Text;
+                        if (ad.activity.Status != (Status)ad.StatusComboBox.SelectedIndex)
+                        {
+                            //StatusChanged?.Invoke(activity, activity.Status, (Status)StatusComboBox.SelectedIndex);
+                            
+                            db.AllActivitesLists[(int)ad.activity.Status].Remove(ad.activity);
+                            db.AllActivitesLists[(int)ad.StatusComboBox.SelectedIndex].Add(ad.activity);
+                            ad.activity.Status = (Status)ad.StatusComboBox.SelectedIndex;
+                        }
+                        //activity.Status = (Status)StatusComboBox.SelectedIndex;
+                        ad.activity.CompleteBy = ad.dateTimePicker1.Value;
+                        ad.activity.Priority = ad.PriorityComboBox.Text;
+                        ad.Close();
                     }
-                    UpdateTheView("norm");
                     break;
                 default:
                     MessageBox.Show("Unrecognized action");
@@ -95,8 +113,9 @@ namespace Kanaban501app
         private void CreateDialogFromActivity(Activity act)
         {
             ActivityDialog ad = new ActivityDialog(act);
-            ad.StatusChanged += MoveItemFromList;
-            ad.FormClosed += UpdateListViewsOnEventHandler;
+            ad.OnSave = InputHandler;
+            //ad.StatusChanged += MoveItemFromList;
+            //ad.FormClosed += UpdateListViewsOnEventHandler;
             ad.ShowDialog();
         }
     }
